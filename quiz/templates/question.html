@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% block head_title %}ADVARISK|Question{% endblock head_title %}
+{% block style %}
+<style>
+  hr {
+  border: none;
+  border-top: 10px solid #6f6f6f;;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h2> Quiz </h2>
+      <table class="table table-condensed" style="font-size:15px">
+        <thead>
+            <tr>
+              <th>Quiz Name</th>
+              <th>Question</th>
+            </tr>
+        </thead>
+      <tbody>
+            {% for ques in ques_objs %}
+              <tr>
+                    <td>{{ ques.quiz }}</td>
+                    <td>{{ ques.question_text }}</td>
+              </tr>
+
+          {% endfor %}
+      </tbody>
+    </table>
+<hr>
+
+<h2> Question/Answer </h2>
+
+<form class="form-horizontal"
+      method="post"
+      enctype="multipart/form-data"
+      action="{% url 'quiz:question_detail'%}"
+      class="collapse">
+      {% csrf_token %}
+
+    <table class="table table-condensed" style="font-size:15px">
+      <thead>
+          <tr>
+            <th></th>
+            <th>Question</th>
+            <th></th>
+
+          </tr>
+      </thead>
+    <tbody>
+          {% for ques in ques_objs %}
+            <tr>
+                <td class="action-checkbox"><input type="checkbox" name="question_text" class="action-select" value="{{ ques.question_text }}"/></td>
+                  <td>
+                    <input type="text" class="form-control"  name="question" value="{{ ques.question_text }}"></input>
+                  </td>
+                  <td><button class="btn btn-default btn-sm" name="submit" title="Save Annual Income/Existing Emi">Get Answer</span>
+                  </button></td>
+            </tr>
+
+        {% endfor %}
+    </tbody>
+  </table>
+</form>
+
+
+{% endblock content %}

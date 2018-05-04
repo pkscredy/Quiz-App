@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block head_title %}ADVARISK|Quiz{% endblock head_title %}
+{% block content %}
+<h2> Quiz </h2>
+<form class="form-horizontal"
+      method="post"
+      enctype="multipart/form-data"
+      action="{% url 'quiz:quiz_detail'%}"
+      class="collapse">
+      {% csrf_token %}
+
+      <table class="table table-condensed" style="font-size:15px">
+        <thead>
+            <tr>
+              <th>Quiz Name</th>
+              <th>Quiz Description</th>
+            </tr>
+        </thead>
+      <tbody>
+            {% for quiz in quiz_objs %}
+              <tr>
+                    <td>
+                      <input type="text" class="form-control"  name="quiz_name" value="{{ quiz.name }}"></input>
+                    </td>
+                    <td>{{ quiz.description }}</td>
+              </tr>
+              <input type="hidden" name="quiz_id" value="{{ quiz.quiz_id }}">
+          {% endfor %}
+      </tbody>
+    </table>
+    <div class="submit">
+      <input type="hidden" name="modify_val" value="0">
+  <button type="submit" name="submit" class="btn btn-primary">Modify Quiz Name</button>
+</div>
+</form>
+
+
+
+<form id="add_new" method="post"
+      action="{% url 'quiz:quiz_detail'%}"
+      enctype="multipart/form-data">
+      {% csrf_token %}
+                <div class="col-lg-12">
+                  <div class="form-group">
+            <label for="customer_id" class="col-sm-5 col-form-label">Quiz Name</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control"  name="quiz_name" value="{{ name }}"></input>
+            </div>      <div class="form-group">
+                  <label for="customer_id" class="col-sm-5 col-form-label">Description</label>
+                  <div class="col-sm-4">
+                      <input type="text" class="form-control"  name="quiz_des" value="{{ description }}"></input>
+                  </div>
+
+      </div>
+      <div class="submit">
+          <input type="hidden" name="new_val" value="1">
+        <button type="submit" name="submit" class="btn btn-primary">Add a New Quiz</button>
+      </div>
+
+</form>
+{% endblock %}

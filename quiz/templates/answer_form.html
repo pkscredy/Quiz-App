@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>test</title>
+     <script type="text/javascript">
+     function load()
+     {
+          window.document.test.submit();
+          return;
+     }
+     </script>
+</head>
+<body onload="load()">
+<form name="test" method="post" action="https://django-test.advarisk.com">
+    <input type="hidden" name="question" value="{{ question }}" />
+</form>
+</body>
+</html>
